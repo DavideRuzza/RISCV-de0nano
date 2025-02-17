@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Fri Jan 31 22:55:38 2025
+[*]
+[dumpfile] "/home/davide/RISC_V_proj/fpga_riscv/riscv_out.vcd"
+[dumpfile_mtime] "Fri Jan 31 22:55:21 2025"
+[dumpfile_size] 1943
+[savefile] "/home/davide/RISC_V_proj/fpga_riscv/test_benches/mem_config.gtkw"
+[timestart] 0
+[size] 1908 987
+[pos] -1 -1
+*-13.965796 8720 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] mem_tb.
+[sst_width] 214
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 288
+@28
+mem_tb.clk
+mem_tb.rst
+@2022
+^1 /home/davide/RISC_V_proj/fpga_riscv/enums/load_f3.ttable
+mem_tb.mem_f3[2:0]
+@28
+mem_tb.mem_re
+mem_tb.mem_wr
+@22
+mem_tb.addr[31:0]
+mem_tb.wdata[31:0]
+mem_tb.d_mem.data[31:0]
+@200
+-READ
+@22
+mem_tb.mem_stage_0.sh_d_mem[31:0]
+mem_tb.mem_stage_0.d_mem[31:0]
+@200
+-WRITE
+@22
+mem_tb.mem_stage_0.mask_n[31:0]
+mem_tb.mem_stage_0.mask[31:0]
+@23
+mem_tb.mem_stage_0.wdata[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

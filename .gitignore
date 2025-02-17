@@ -1,0 +1,6 @@
+.vscode/
+__pycache__/
+design_logic/
+pipelined_*
+riscv-tests
+single_cycle_cpu.py

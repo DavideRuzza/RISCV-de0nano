@@ -1,0 +1,18 @@
+
+test:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <start>:
+   0:	00100093          	li	ra,1
+   4:	00200113          	li	sp,2
+   8:	00300193          	li	gp,3
+   c:	00400213          	li	tp,4
+  10:	002080b3          	add	ra,ra,sp
+  14:	003080b3          	add	ra,ra,gp
+  18:	004080b3          	add	ra,ra,tp
+  1c:	00000013          	nop
+  20:	00000013          	nop
+  24:	00000013          	nop
+  28:	00000013          	nop
