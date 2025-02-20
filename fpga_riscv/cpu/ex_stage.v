@@ -118,7 +118,11 @@ always @(*) begin
     end else begin
         case (ex_f3_i)
             `F3_ADD_SUB: begin
-                alu_arithm <= op1+op2;
+                if (ex_f3_i == 7'b0100000) begin
+                    alu_arithm <= op1+op2;
+                end else begin
+                    alu_arithm <= op1+op2;
+                end
             end
             `F3_AND: begin
                 alu_arithm <= op1&op2;
