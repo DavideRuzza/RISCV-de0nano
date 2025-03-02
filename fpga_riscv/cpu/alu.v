@@ -14,34 +14,17 @@ module alu #(
 
     output wire c, // carry out
     output wire z, // zero
-    output wire v, // overflow
+    output wire v_sub, // overflow of subtraction
     output wire n // negative
     
 );
     
 reg [SIZE:0] alu_arithm;
-wire [SIZE-1:0] op2_n = (~op2_i)+4'b0001;
-
 assign alu = alu_arithm[SIZE-1:0];
-assign c = alu_arithm[SIZE];
-assign n = alu_arithm[SIZE-1];
-assign z = (alu==0);
-
-wire [SIZE-1:0] sub_s = op1_i+op2_n;
-
-assign v = (op1_i[SIZE-1] & op2_i[SIZE-1] & !alu[SIZE-1]) | (!op1_i[SIZE-1] & !op2_i[SIZE-1] & alu[SIZE-1]);
-assign v_s = (op1_i[SIZE-1] & op2_n[SIZE-1] & !sub_s[SIZE-1]) | (!op1_i[SIZE-1] & !op2_n[SIZE-1] & sub_s[SIZE-1]);
 
 
-wire [4:0] flags = {c, n, z, v};
-wire beq = (z==1);
-wire bne = (z==0);
-wire blt = (n!=v_s && c==v_s);
-wire bge = (z==0);
-wire bltu = (c==1);
-wire bgeu = (c==0);
 
-wire v_0 = !(v^v_s);
+
 
 // ALU
 always @(*) begin

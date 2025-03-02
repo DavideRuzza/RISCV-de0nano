@@ -23,6 +23,8 @@ module id_stage (
     output reg [`Funct7Bus ] ex_f7,         // operation select for alu
     output reg               ex_imm_sel,    // 1 to select immediate as op2 for alu
     output reg               ex_pc_sel,     // 1 to select pc as op1 for alu
+    output reg               ex_jmp,        // 1 if the instruction is a branch instruction for comparison
+    output reg               ex_br,         // 1 if the instruction is a jump instruction for comparison
     output reg               mem_re,        // D-mem read
     output reg               mem_wr,        // D-mem write
     output reg [`Funct3Bus ] mem_f3,        // D-mem size select
@@ -31,11 +33,13 @@ module id_stage (
 
 );
 
-`define SET_CTRL(ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s) \
+`define SET_CTRL(ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, ex_jmp_s, ex_br_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s) \
     ex_f3 = ex_f3_s; \
     ex_f7 = ex_f7_s; \
     ex_imm_sel = ex_imm_sel_s; \
     ex_pc_sel = ex_pc_sel_s; \
+    ex_jmp = ex_jmp_s; \
+    ex_br = ex_br_s; \
     mem_re = mem_re_s; \
     mem_wr = mem_wr_s; \
     mem_f3 = mem_f3_s; \
@@ -71,6 +75,7 @@ wire [31:0] x1 = reg_file_0.reg_file[1];
 wire [31:0] x2 = reg_file_0.reg_file[2];
 wire [31:0] x3 = reg_file_0.reg_file[3];
 wire [31:0] x4 = reg_file_0.reg_file[4];
+wire [31:0] x5 = reg_file_0.reg_file[5];
 wire [31:0] x6 = reg_file_0.reg_file[6];
 wire [31:0] x7 = reg_file_0.reg_file[7];
 wire [31:0] x8 = reg_file_0.reg_file[8];
@@ -88,56 +93,65 @@ imm_gen imm_gen_0(
 
 // CONTROL UNIT
 
-
 always @(*) begin
     if (rst) begin
-        `SET_CTRL(0, 0, 0, 0, 0, 0, 0, 0, 0);
+        `SET_CTRL(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     end else begin
         case (op)
             `OP_INVALID: begin
-                `SET_CTRL(0, 0, 0, 0, 0, 0, 0, 0, 0);
+                `SET_CTRL(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             end
             `OP_OP_IMM: begin
                 case (f3)
                     `F3_ADD_SUB: begin
-                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 1, 0);
+                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0);
                     end
                     `F3_AND: begin
-                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 1, 0);
+                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0);
                     end
                     `F3_OR: begin
-                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 1, 0);
+                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0);
                     end
                     `F3_XOR: begin
-                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 1, 0);
+                        `SET_CTRL(f3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0);
                     end
                     default: begin
-                        `SET_CTRL(3'bx, 7'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx);  
+                        `SET_CTRL(3'bx, 7'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx);  
                     end
                 endcase
             end
             `OP_AUIPC: begin
-                `SET_CTRL(f3, 0, 1, 1, 0, 0, 0, 1, 0);
+                `SET_CTRL(f3, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0);
             end
             `OP_OP: begin
                 case (f3)
                     `F3_ADD_SUB: begin
-                        `SET_CTRL(f3, 0, 0, 0, 0, 0, 0, 1, 0);
+                        `SET_CTRL(f3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
                     end
                     default: begin
-                        `SET_CTRL(3'bx, 7'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx);  
+                        `SET_CTRL(3'bx, 7'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx);  
                     end
                 endcase
             end
-// ex_f3, ex_f7, ex_imm_sel, ex_pc_sel, mem_re, mem_wr, mem_f3, wb_reg_wr, wb_mem_sel
             `OP_LOAD: begin
-                `SET_CTRL(0, 0, 1, 0, 1, 0, f3, 1, 1);
+                `SET_CTRL(0, 0, 1, 0, 0, 0, 1, 0, f3, 1, 1);
             end
             `OP_STORE: begin
-                `SET_CTRL(0, 0, 1, 0, 0, 1, f3, 0, 0);
+                `SET_CTRL(0, 0, 1, 0, 0, 0, 0, 1, f3, 0, 0);
+            end
+            `OP_BRANCH: begin
+// ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, ex_jmp_s, ex_br_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s
+                `SET_CTRL(f3, f7, 1, 1, 0, 1, 0, 0, 0, 0, 0);
+            end
+            `OP_JAL: begin
+// ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, ex_jmp_s, ex_br_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s
+                `SET_CTRL(0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+            end
+            `OP_SYSTEM: begin
+                `SET_CTRL(f3, f7, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             end
             default: begin 
-                `SET_CTRL(3'bx, 7'bxx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx);
+                `SET_CTRL(3'bx, 7'bxx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx, 1'bx);
             end
         endcase
     end

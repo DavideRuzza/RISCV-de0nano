@@ -33,6 +33,8 @@ with open("fpga_riscv/enums/unique_f3.ttable", "w") as f:
         f.write(f'{(Ops.OP_IMM.value<<3)+f3.value:03x} {f3.name}\n')
     for f3 in LOAD_F3:
         f.write(f'{(Ops.LOAD.value<<3)+f3.value:03x} {f3.name}\n')
+ 
+with open("fpga_riscv/enums/branch_f3.ttable", "w") as f:       
     for f3 in BR_F3:
-        f.write(f'{(Ops.BRANCH.value<<3)+f3.value:03x} {f3.name}\n')
+        f.write(f'{f3.value:1x} {f3.name}\n')
     

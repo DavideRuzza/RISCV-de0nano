@@ -21,13 +21,16 @@ start:
     li x2, 2
     li x3, 3
     li x4, 4
+    blt x1, x2, is_lt # if x1 < x2 then main
+    j is_lt
     add x1, x1, x2
     add x1, x1, x3
     add x1, x1, x4
-    nop
-    nop
-    nop
-    nop
+    ebreak
+
+is_lt:
+    li x5, 5
+
     
 # start:
 

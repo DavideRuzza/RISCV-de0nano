@@ -18,14 +18,15 @@ initial begin
 end
 
 // ------------
-reg [`StallBus] stall;
+wire [`StallBus] stall;
+wire [`FlushBus] flush;
 
 pc_reg pc_reg_0(
     .clk(clk),
     .rst(rst),
-    .stall_i(stall),
-    .br_addr(32'b0),
-    .br_en(1'b0)
+    .stall_i(stall)
+    // .br_addr(32'b0),
+    // .br_en(1'b0)
 );
 
 simple_async_memory #(
@@ -45,6 +46,7 @@ if_id_reg if_id_reg_0(
     .clk(clk),
     .rst(rst),
     .stall_i(stall),
+    .flush_i(flush),
     .pc_i(pc_reg_0.pc),
     .ins_i(i_mem.data)
 );
@@ -59,9 +61,9 @@ id_ex_reg id_ex_reg_0(
     .clk(clk),
     .rst(rst),
     .stall_i(stall),
+    .flush_i(flush),
 
     .pc_i(if_id_reg_0.pc),
-
     .r1_i(id_stage_0.r1),
     .r2_i(id_stage_0.r2),
     .rd_i(id_stage_0.rd),
@@ -73,6 +75,8 @@ id_ex_reg id_ex_reg_0(
     .ex_f7_i(id_stage_0.ex_f7),
     .ex_imm_sel_i(id_stage_0.ex_imm_sel),
     .ex_pc_sel_i(id_stage_0.ex_pc_sel),
+    .ex_jmp_i(id_stage_0.ex_jmp),
+    .ex_br_i(id_stage_0.ex_br),
     .mem_re_i(id_stage_0.mem_re),
     .mem_wr_i(id_stage_0.mem_wr),
     .mem_f3_i(id_stage_0.mem_f3),
@@ -100,6 +104,8 @@ ex_stage ex_stage_0(
     .imm_i(id_ex_reg_0.imm),
     .ex_f3_i(id_ex_reg_0.ex_f3),
     .ex_f7_i(id_ex_reg_0.ex_f7),
+    .ex_jmp_i(id_ex_reg_0.ex_jmp),
+    .ex_br_i(id_ex_reg_0.ex_br),
     .ex_imm_sel_i(id_ex_reg_0.ex_imm_sel),
     .ex_pc_sel_i(id_ex_reg_0.ex_pc_sel),
 
@@ -111,6 +117,22 @@ ex_stage ex_stage_0(
     .memwb_wdata_i(memwb_wdata),
     .memwb_wb_reg_wr_i(memwb_wb_reg_wr)
 );
+
+assign pc_reg_0.br_addr = ex_stage_0.alu;
+assign pc_reg_0.br_en = ex_stage_0.br_jmp_en;
+
+assign stall = {1'b0, 1'b0, 1'b0, 1'b0, 1'b0};
+// always @(*) begin
+//     if (rst) begin
+//         flush <= 5'b0;
+//     end else begin
+//         flush <= {1'b0, 1'b0, 1'b0, ex_stage_0.br_jmp_en, 1'b0}; 
+//     end
+// end
+
+assign flush = {1'b0, 1'b0, ex_stage_0.br_jmp_en, ex_stage_0.br_jmp_en, 1'b0};
+// assign if_id_reg_0.stall_i = stall;
+// assign if_id_reg_0.flush_i = flush;
 
 ex_mem_reg ex_mem_reg_0(
     .clk(clk),
@@ -186,7 +208,7 @@ initial begin
     $dumpfile("riscv_out.vcd");
     $dumpvars(0, cpu_tb);
 
-    stall = 4'b0;
+    // stall = 4'b0;
     
     rst = 1; #10; 
     rst = 0; #10;

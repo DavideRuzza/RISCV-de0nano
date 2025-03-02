@@ -11,7 +11,8 @@
 `define OpBus 6:0
 `define Funct7Bus 6:0
 `define Funct3Bus 2:0
-`define StallBus 4:0
+`define StallBus 4:0  // 0: pc_reg,  1: if_id_reg,  2: id_ex_reg,  3: ex_mem_reg,  4: mem_wb_reg
+`define FlushBus 4:0  // 0: pc_reg,  1: if_id_reg,  2: id_ex_reg,  3: ex_mem_reg,  4: mem_wb_reg
 
 
 
@@ -48,6 +49,14 @@
 `define F3_SH       3'b001
 `define F3_SW       3'b010
 
+`define F3_BR_BEQ   3'b000
+`define F3_BR_BNE   3'b001
+`define F3_BR_BLT   3'b100
+`define F3_BR_BGE   3'b101
+`define F3_BR_BLTU  3'b110
+`define F3_BR_BGEU  3'b111
+
+`define F7_SUB      7'b0100000
 
 // forwarding
 `define NO_FORW     2'b00

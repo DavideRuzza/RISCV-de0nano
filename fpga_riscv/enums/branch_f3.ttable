@@ -1,0 +1,6 @@
+0 BEQ
+1 BNE
+4 BLT
+5 BGE
+6 BLTU
+7 BGEU

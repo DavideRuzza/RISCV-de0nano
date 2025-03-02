@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Thu Feb 20 22:27:37 2025
+[*] Sun Feb 23 21:08:07 2025
 [*]
 [dumpfile] "/home/davide/RISC_V_proj/fpga_riscv/riscv_out.vcd"
-[dumpfile_mtime] "Thu Feb 20 22:26:51 2025"
-[dumpfile_size] 1862
+[dumpfile_mtime] "Sun Feb 23 21:07:29 2025"
+[dumpfile_size] 2064
 [savefile] "/home/davide/RISC_V_proj/fpga_riscv/test_benches/alu_config.gtkw"
 [timestart] 0
 [size] 1908 987
 [pos] 65384 65317
-*-13.811604 23580 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-14.074636 44080 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_tb.
 [sst_width] 214
 [signals_width] 251
@@ -46,17 +46,13 @@ alu_tb.alu_0.op2_i[3:0]
 alu_tb.alu_0.c
 alu_tb.alu_0.n
 alu_tb.alu_0.z
-alu_tb.alu_0.v
-@29
 alu_tb.alu_0.v_s
 @200
 -inout
 @28
 alu_tb.alu_0.op1_i[3:0]
 alu_tb.alu_0.op2_i[3:0]
-@22
 alu_tb.alu_0.op2_n[3:0]
-@28
 alu_tb.alu_0.alu_arithm[4:0]
 @420
 alu_tb.alu_0.alu[3:0]
@@ -67,10 +63,12 @@ alu_tb.alu_0.sub_s[3:0]
 @28
 alu_tb.alu_0.beq
 alu_tb.alu_0.bne
-alu_tb.alu_0.bge
-[color] 2
 alu_tb.alu_0.blt
-alu_tb.alu_0.bgeu
 alu_tb.alu_0.bltu
+@29
+[color] 2
+alu_tb.alu_0.bge
+@28
+alu_tb.alu_0.bgeu
 [pattern_trace] 1
 [pattern_trace] 0

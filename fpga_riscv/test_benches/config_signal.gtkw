@@ -1,16 +1,17 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sat Feb  8 18:01:49 2025
+[*] Sun Mar  2 19:38:32 2025
 [*]
 [dumpfile] "/home/davide/RISC_V_proj/fpga_riscv/riscv_out.vcd"
-[dumpfile_mtime] "Sat Feb  8 18:00:44 2025"
-[dumpfile_size] 15824
+[dumpfile_mtime] "Sun Mar  2 19:38:03 2025"
+[dumpfile_size] 18273
 [savefile] "/home/davide/RISC_V_proj/fpga_riscv/test_benches/config_signal.gtkw"
 [timestart] 0
 [size] 1908 987
-[pos] 65471 65471
-*-15.115999 78600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 130943 130943
+*-15.115999 68500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cpu_tb.
+[treeopen] cpu_tb.ex_stage_0.
 [sst_width] 278
 [signals_width] 272
 [sst_expanded] 1
@@ -21,11 +22,17 @@ cpu_tb.rst
 @200
 -FETCH
 @22
+cpu_tb.pc_reg_0.br_addr[31:0]
+@28
+cpu_tb.pc_reg_0.br_en
+@22
 cpu_tb.pc_reg_0.pc[31:0]
 cpu_tb.i_mem.data[31:0]
 @200
 -IFID_reg
 @22
+cpu_tb.if_id_reg_0.flush_i[4:0]
+cpu_tb.if_id_reg_0.stall_i[4:0]
 cpu_tb.if_id_reg_0.pc[31:0]
 cpu_tb.if_id_reg_0.ins[31:0]
 @200
@@ -36,7 +43,7 @@ cpu_tb.id_stage_0.reg_file_waddr_i[4:0]
 cpu_tb.id_stage_0.reg_file_we_i
 @22
 cpu_tb.id_stage_0.reg_file_wdata_i[31:0]
-@800200
+@c00200
 -reg_file
 @22
 cpu_tb.id_stage_0.x0[31:0]
@@ -44,6 +51,7 @@ cpu_tb.id_stage_0.x1[31:0]
 cpu_tb.id_stage_0.x2[31:0]
 cpu_tb.id_stage_0.x3[31:0]
 cpu_tb.id_stage_0.x4[31:0]
+cpu_tb.id_stage_0.x5[31:0]
 cpu_tb.id_stage_0.x6[31:0]
 cpu_tb.id_stage_0.x7[31:0]
 cpu_tb.id_stage_0.x8[31:0]
@@ -51,7 +59,7 @@ cpu_tb.id_stage_0.x9[31:0]
 cpu_tb.id_stage_0.x10[31:0]
 cpu_tb.id_stage_0.x11[31:0]
 cpu_tb.id_stage_0.x12[31:0]
-@1000200
+@1401200
 -reg_file
 @22
 cpu_tb.id_stage_0.rd[4:0]
@@ -78,6 +86,8 @@ cpu_tb.id_stage_0.ex_f7[6:0]
 @28
 cpu_tb.id_stage_0.ex_imm_sel
 cpu_tb.id_stage_0.ex_pc_sel
+cpu_tb.id_stage_0.ex_jmp
+cpu_tb.id_stage_0.ex_br
 @2022
 ^4 /home/davide/RISC_V_proj/fpga_riscv/enums/load_f3.ttable
 cpu_tb.id_stage_0.mem_f3[2:0]
@@ -97,7 +107,7 @@ cpu_tb.id_ex_reg_0.d2[31:0]
 cpu_tb.id_ex_reg_0.imm[31:0]
 @200
 -EX_STAGE
-@800200
+@c00201
 -ex_stage
 @2022
 ^2 /home/davide/RISC_V_proj/fpga_riscv/enums/ops_f3.ttable
@@ -114,7 +124,7 @@ cpu_tb.ex_stage_0.exmem_alu_i[31:0]
 cpu_tb.ex_stage_0.exmem_wb_reg_wr_i
 @22
 cpu_tb.ex_stage_0.memwb_wdata_i[31:0]
-@29
+@28
 cpu_tb.ex_stage_0.memwb_wb_reg_wr_i
 @200
 -
@@ -128,16 +138,28 @@ cpu_tb.ex_stage_0.memwb_rd_i[4:0]
 @28
 cpu_tb.ex_stage_0.ex_imm_sel_i
 cpu_tb.ex_stage_0.ex_pc_sel_i
-@1000200
+@200
+-BRANCH_UNIT
+@28
+cpu_tb.ex_stage_0.ex_br_i
+cpu_tb.ex_stage_0.ex_jmp_i
+@200
+-
+@22
+cpu_tb.ex_stage_0.br_unit_0.op1_i[31:0]
+cpu_tb.ex_stage_0.br_unit_0.op2_i[31:0]
+@28
+cpu_tb.ex_stage_0.br_unit_0.branch_taken
+cpu_tb.ex_stage_0.br_jmp_en
+@2022
+^6 /home/davide/RISC_V_proj/fpga_riscv/enums/branch_f3.ttable
+cpu_tb.ex_stage_0.br_unit_0.br_f3_i[2:0]
+@1401201
 -ex_stage
 @22
 cpu_tb.ex_stage_0.op1[31:0]
 cpu_tb.ex_stage_0.op2[31:0]
 cpu_tb.ex_stage_0.alu[31:0]
-@28
-cpu_tb.ex_stage_0.z
-cpu_tb.ex_stage_0.o
-cpu_tb.ex_stage_0.n
 @200
 -EXMEM_reg
 @22
@@ -152,7 +174,7 @@ cpu_tb.ex_mem_reg_0.alu[31:0]
 cpu_tb.ex_mem_reg_0.mem_re
 cpu_tb.ex_mem_reg_0.mem_wr
 @2022
-^6 /home/davide/RISC_V_proj/fpga_riscv/enums/load_store_uniq_f3.ttable
+^7 /home/davide/RISC_V_proj/fpga_riscv/enums/load_store_uniq_f3.ttable
 cpu_tb.d_mem.unique_f3[3:0]
 @22
 cpu_tb.d_mem.data[31:0]
