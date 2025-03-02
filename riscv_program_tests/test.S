@@ -17,16 +17,17 @@ msg:    .asciz "Hello, RISC-V!\n"
 #     # add x3, x1, x2
 
 start:
+    la x4, start
+    li x3, 2 
+    li x2, 0
     li x1, 1
-    li x2, 2
-    li x3, 3
-    li x4, 4
-    blt x1, x2, is_lt # if x1 < x2 then main
-    j is_lt
-    add x1, x1, x2
-    add x1, x1, x3
-    add x1, x1, x4
-    ebreak
+    j loop
+
+loop:
+   
+    blt x3, x2, is_lt # if x1 < x2 then main
+    add x2, x2, x1
+    jal loop
 
 is_lt:
     li x5, 5

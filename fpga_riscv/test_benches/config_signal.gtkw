@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Mar  2 19:38:32 2025
+[*] Sun Mar  2 20:02:34 2025
 [*]
 [dumpfile] "/home/davide/RISC_V_proj/fpga_riscv/riscv_out.vcd"
-[dumpfile_mtime] "Sun Mar  2 19:38:03 2025"
-[dumpfile_size] 18273
+[dumpfile_mtime] "Sun Mar  2 20:02:12 2025"
+[dumpfile_size] 31159
 [savefile] "/home/davide/RISC_V_proj/fpga_riscv/test_benches/config_signal.gtkw"
 [timestart] 0
 [size] 1908 987
 [pos] 130943 130943
-*-15.115999 68500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-15.115999 80200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cpu_tb.
 [treeopen] cpu_tb.ex_stage_0.
 [sst_width] 278
@@ -43,7 +43,7 @@ cpu_tb.id_stage_0.reg_file_waddr_i[4:0]
 cpu_tb.id_stage_0.reg_file_we_i
 @22
 cpu_tb.id_stage_0.reg_file_wdata_i[31:0]
-@c00200
+@800200
 -reg_file
 @22
 cpu_tb.id_stage_0.x0[31:0]
@@ -59,7 +59,7 @@ cpu_tb.id_stage_0.x9[31:0]
 cpu_tb.id_stage_0.x10[31:0]
 cpu_tb.id_stage_0.x11[31:0]
 cpu_tb.id_stage_0.x12[31:0]
-@1401200
+@1000200
 -reg_file
 @22
 cpu_tb.id_stage_0.rd[4:0]
@@ -107,7 +107,7 @@ cpu_tb.id_ex_reg_0.d2[31:0]
 cpu_tb.id_ex_reg_0.imm[31:0]
 @200
 -EX_STAGE
-@c00201
+@c00200
 -ex_stage
 @2022
 ^2 /home/davide/RISC_V_proj/fpga_riscv/enums/ops_f3.ttable
@@ -154,7 +154,7 @@ cpu_tb.ex_stage_0.br_jmp_en
 @2022
 ^6 /home/davide/RISC_V_proj/fpga_riscv/enums/branch_f3.ttable
 cpu_tb.ex_stage_0.br_unit_0.br_f3_i[2:0]
-@1401201
+@1401200
 -ex_stage
 @22
 cpu_tb.ex_stage_0.op1[31:0]

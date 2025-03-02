@@ -140,12 +140,15 @@ always @(*) begin
                 `SET_CTRL(0, 0, 1, 0, 0, 0, 0, 1, f3, 0, 0);
             end
             `OP_BRANCH: begin
-// ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, ex_jmp_s, ex_br_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s
                 `SET_CTRL(f3, f7, 1, 1, 0, 1, 0, 0, 0, 0, 0);
             end
             `OP_JAL: begin
 // ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, ex_jmp_s, ex_br_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s
                 `SET_CTRL(0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+            end
+            `OP_JALR: begin
+// ex_f3_s, ex_f7_s, ex_imm_sel_s, ex_pc_sel_s, ex_jmp_s, ex_br_s, mem_re_s, mem_wr_s, mem_f3_s, wb_reg_wr_s, wb_mem_sel_s
+                `SET_CTRL(0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0);
             end
             `OP_SYSTEM: begin
                 `SET_CTRL(f3, f7, 0, 0, 0, 0, 0, 0, 0, 0, 0);

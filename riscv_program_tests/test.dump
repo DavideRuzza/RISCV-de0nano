@@ -5,16 +5,17 @@ test:     file format elf32-littleriscv
 Disassembly of section .text:
 
 00000000 <start>:
-   0:	00100093          	li	ra,1
-   4:	00200113          	li	sp,2
-   8:	00300193          	li	gp,3
-   c:	00400213          	li	tp,4
-  10:	0020cc63          	blt	ra,sp,28 <is_lt>
-  14:	0140006f          	j	28 <is_lt>
-  18:	002080b3          	add	ra,ra,sp
-  1c:	003080b3          	add	ra,ra,gp
-  20:	004080b3          	add	ra,ra,tp
-  24:	00100073          	ebreak
+   0:	00000217          	auipc	tp,0x0
+   4:	00020213          	mv	tp,tp
+   8:	00200193          	li	gp,2
+   c:	00000113          	li	sp,0
+  10:	00100093          	li	ra,1
+  14:	0040006f          	j	18 <loop>
 
-00000028 <is_lt>:
-  28:	00500293          	li	t0,5
+00000018 <loop>:
+  18:	0021c663          	blt	gp,sp,24 <is_lt>
+  1c:	00110133          	add	sp,sp,ra
+  20:	ff9ff0ef          	jal	18 <loop>
+
+00000024 <is_lt>:
+  24:	00500293          	li	t0,5
