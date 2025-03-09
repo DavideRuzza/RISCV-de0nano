@@ -6,7 +6,7 @@ Disassembly of section .text:
 
 00000000 <start>:
    0:	00000217          	auipc	tp,0x0
-   4:	00020213          	mv	tp,tp
+   4:	01820213          	addi	tp,tp,24 # 18 <loop>
    8:	00200193          	li	gp,2
    c:	00000113          	li	sp,0
   10:	00100093          	li	ra,1
@@ -15,7 +15,7 @@ Disassembly of section .text:
 00000018 <loop>:
   18:	0021c663          	blt	gp,sp,24 <is_lt>
   1c:	00110133          	add	sp,sp,ra
-  20:	ff9ff0ef          	jal	18 <loop>
+  20:	000203e7          	jalr	t2,tp # 0 <start>
 
 00000024 <is_lt>:
   24:	00500293          	li	t0,5
