@@ -17,6 +17,7 @@ msg:    .asciz "Hello, RISC-V!\n"
 #     # add x3, x1, x2
 
 start:
+    lui x8, 0x12345
     la x4, loop
     li x3, 2 
     li x2, 0

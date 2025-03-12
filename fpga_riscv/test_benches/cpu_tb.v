@@ -77,6 +77,7 @@ id_ex_reg id_ex_reg_0(
     .ex_pc_sel_i(id_stage_0.ex_pc_sel),
     .ex_jmp_i(id_stage_0.ex_jmp),
     .ex_br_i(id_stage_0.ex_br),
+    .ex_lui_i(id_stage_0.ex_lui),
     .mem_re_i(id_stage_0.mem_re),
     .mem_wr_i(id_stage_0.mem_wr),
     .mem_f3_i(id_stage_0.mem_f3),
@@ -102,12 +103,14 @@ ex_stage ex_stage_0(
     .d1_i(id_ex_reg_0.d1),
     .d2_i(id_ex_reg_0.d2),
     .imm_i(id_ex_reg_0.imm),
+
     .ex_f3_i(id_ex_reg_0.ex_f3),
     .ex_f7_i(id_ex_reg_0.ex_f7),
-    .ex_jmp_i(id_ex_reg_0.ex_jmp),
-    .ex_br_i(id_ex_reg_0.ex_br),
     .ex_imm_sel_i(id_ex_reg_0.ex_imm_sel),
     .ex_pc_sel_i(id_ex_reg_0.ex_pc_sel),
+    .ex_jmp_i(id_ex_reg_0.ex_jmp),
+    .ex_br_i(id_ex_reg_0.ex_br),
+    .ex_lui_i(id_ex_reg_0.ex_lui),
 
 
     .exmem_rd_i(exmem_rd),

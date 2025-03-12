@@ -22,6 +22,7 @@ module ex_stage (
     input wire               ex_pc_sel_i, // 1 to select pc as op1 for alu
     input wire               ex_jmp_i, // 1 if the instruction is a branch/jump instruction for comparison
     input wire               ex_br_i, // 1 if the instruction is a branch/jump instruction for comparison
+    input wire               ex_lui_i,        // 1 if is a lui instruction, forward the immediate to the result of alu
 
     // forward unit
     input wire  [`RegAddrBus] exmem_rd_i,
@@ -111,20 +112,25 @@ wire [`Funct7Bus] ex_f7_mux = (ex_jmp_i || ex_br_i) ? 7'b0 : ex_f7_i;
 
 
 
+// wire [`DataBus] alu_mux;
+
+
 alu #(.SIZE(32)) alu_0(
     .rst(rst),
     .f3_i(ex_f3_mux), // operation select for alu
     .f7_i(ex_f7_mux), // operation select for alu
     .op1_i(op1),
-    .op2_i(op2),
+    .op2_i(op2)
 
-    .alu(alu)
+    // .alu(alu)
 
     // output wire c, // carry out
     // output wire z, // zero
     // output wire v_sub, // overflow of subtraction
     // output wire n // negative
 );
+
+assign alu = (ex_lui_i) ? imm_i : alu_0.alu;
 
 branch_unit #(.SIZE(32)) br_unit_0(
     .rst(rst),
