@@ -21,7 +21,11 @@ end
 wire [`StallBus] stall;
 wire [`FlushBus] flush;
 
-pc_reg pc_reg_0(
+parameter offset = 32'h8000000;
+
+pc_reg #(
+    .PC_RST(offset)
+) pc_reg_0(
     .clk(clk),
     .rst(rst),
     .stall_i(stall)
@@ -31,8 +35,8 @@ pc_reg pc_reg_0(
 
 simple_async_memory #(
     .MEM_SIZE(256),
-    .MEM_FILE("memory/Iram.hex")
-
+    .MEM_FILE("memory/Iram.hex"),
+    .MEM_OFFSET(offset)
 ) i_mem (
     .clk(clk),
     .rst(rst),

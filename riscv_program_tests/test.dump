@@ -4,19 +4,19 @@ test:     file format elf32-littleriscv
 
 Disassembly of section .text:
 
-00000000 <start>:
-   0:	12345437          	lui	s0,0x12345
-   4:	00000217          	auipc	tp,0x0
-   8:	01820213          	addi	tp,tp,24 # 1c <loop>
-   c:	00200193          	li	gp,2
-  10:	00000113          	li	sp,0
-  14:	00100093          	li	ra,1
-  18:	0040006f          	j	1c <loop>
+80000000 <start>:
+80000000:	12345437          	lui	s0,0x12345
+80000004:	00000217          	auipc	tp,0x0
+80000008:	01820213          	addi	tp,tp,24 # 8000001c <loop>
+8000000c:	00200193          	li	gp,2
+80000010:	00000113          	li	sp,0
+80000014:	00100093          	li	ra,1
+80000018:	0040006f          	j	8000001c <loop>
 
-0000001c <loop>:
-  1c:	0021c663          	blt	gp,sp,28 <is_lt>
-  20:	00110133          	add	sp,sp,ra
-  24:	000203e7          	jalr	t2,tp # 0 <start>
+8000001c <loop>:
+8000001c:	0021c663          	blt	gp,sp,80000028 <is_lt>
+80000020:	00110133          	add	sp,sp,ra
+80000024:	000203e7          	jalr	t2,tp # 0 <start-0x80000000>
 
-00000028 <is_lt>:
-  28:	00500293          	li	t0,5
+80000028 <is_lt>:
+80000028:	00500293          	li	t0,5

@@ -3,7 +3,8 @@
 module simple_async_memory #(
     
     parameter MEM_SIZE=256,
-    parameter MEM_FILE="ram.hex"
+    parameter MEM_FILE="ram.hex",
+    parameter MEM_OFFSET=32'h8000000
 
 ) (
     input wire               clk,
@@ -25,7 +26,7 @@ end
 
 always @ (negedge clk or addr) begin
     if (!rst && re) begin
-        data = mem[addr>>2];
+        data = mem[(addr-MEM_OFFSET)>>2];
     end else begin
         data = 0;
     end
@@ -35,7 +36,7 @@ end
 
 always @ (posedge clk) begin
     if (!rst && we) begin
-        mem[addr>>2] <= data_i;
+        mem[(addr-MEM_OFFSET)>>2] <= data_i;
 
     end
 end

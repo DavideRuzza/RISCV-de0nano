@@ -4,11 +4,21 @@ from enum import Enum
 from logic_utils import *
 from binascii import hexlify
 from struct import pack, unpack
+import argparse
 
 
+parser = argparse.ArgumentParser(description="Esempio di parsing degli argomenti")
+parser.add_argument("-o", "--offset", type=str, help="offset in hex format ffffffff", default='0')
+# parser.add_argument("--eta", type=int, help="La tua età", default=18)
+
+args = parser.parse_args()
+
+# print(args)
+off = int(args.offset, 16)
+print(off)
 x = "riscv_program_tests/test"
-Dram = MainMemory(1, 0x00000000)
-Iram = MainMemory(1, 0x00000000)
+Dram = MainMemory(1, off)
+Iram = MainMemory(1, off)
 with open(x, "rb") as f:
     e = ELFFile(f)
     
@@ -57,6 +67,11 @@ with open(x, "rb") as f:
 with open("fpga_riscv/memory/Dram.hex", "w") as f:
     print("Writing Dram")
     for i in range(int(Dram.size_byte)):
+        # i = j+off
+        # i = j+off
+        # print(hex(i), Dram.mem[0:0+1])
+
+        # break
         data = pack(">B", unpack("<B", Dram.mem[i:i+1])[0])
         f.write(hexlify(data).decode())
         if (i+1)%16*4==0 and i!=0:

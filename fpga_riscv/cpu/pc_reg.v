@@ -1,7 +1,10 @@
 
 `include "cpu/define.v"
 
-module pc_reg (
+module pc_reg #(
+    parameter PC_RST = 32'h80000000
+) 
+(
 
     input wire               clk,
     input wire               rst,
@@ -20,7 +23,7 @@ module pc_reg (
 always @(posedge clk) begin
 
     if (rst) begin
-        pc <= 0;
+        pc <= PC_RST;
     end else if (!stall_i[0]) begin
         if (br_en) begin
             pc <= br_addr;
